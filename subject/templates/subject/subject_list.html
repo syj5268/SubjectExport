@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <head>
+        <title>Subject_List</title>
+        <style>
+            #content {
+            width: 100%;
+            max-width: 900px;
+            margin: 5px auto;
+            position: relative;
+            padding: 0px 20px;
+            box-sizing: border-box;
+            min-height: inherit;
+        }
+        </style>
+    </head>
+
+    <body>
+        <div id='content'>
+            <h2> 과목 리스트  </h2> 총 {{ page_obj.paginator.count }}개
+            <ul class='list-group list-group-flush'>
+                {% for subject in object_list %}
+                    <li class='list-group-item'>
+                        <h3><a href="{% url 'detail' subject.id %}" >{{ subject.name }}</a></h3>
+                        <span><p class=".sr-only">{{ subject.department }}</p></span>
+                        <p> {{ subject.professor }} 교수님 </p>
+                        <i><p> 키워드 : {{ subject.words_5 }}</p> </i>
+
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% if page_obj.has_other_pages %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" tabindex="-1" aria-disabled="true">이전</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a>
+                    </li>
+                    {% endif %}
+
+                    {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">다음</a></li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">다음</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+    </body>
+{% endblock content %}
+

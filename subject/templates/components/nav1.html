@@ -1,0 +1,49 @@
+{% load static %}
+<head>
+  <style>
+    .nav{
+      display: flex;
+      text-align: left;
+      box-sizing: border-box;
+      justify-content: flex-end;
+      padding: 0;
+      top: 0;
+      left: 0;
+      padding: 0px;
+      font-size: 25px;
+      color: black;
+      background-color: lavender;
+      height: 100%;
+      z-index: 1;
+      font-family: 'Nanum Pen Script', cursive;
+      font-weight: 200;
+    }
+  </style>
+</head>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href='{% url "search" %}'>
+      <img src="{% static 'logo/cap.png' %}" width="38" height="33" style="margin-bottom: 0.4em;"> 과목박사
+    </a>
+    <a class="navbar-brand" href='{% url "search" %}'></a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+      <ul class="navbar-nav justify-content-end me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href='{% url "search" %}'>강의검색</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="https://sugang.korea.ac.kr/" tabindex="-1" aria-disabled="true">수강신청사이트</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href= "https://data.korea.ac.kr/?page_id=6296">2021 KU Datathon</a>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</nav>

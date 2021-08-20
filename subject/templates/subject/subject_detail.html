@@ -1,0 +1,274 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% load subject_tag %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ object.name }}{% endblock %}</title>
+    <style>
+        .classpage{
+        text-align: left;
+        margin: 5px;
+        }
+
+        .classpage li{
+        margin: 10px;
+        list-style: none;
+        width: 100%;
+        border: 1px solid rgb(224, 223, 223);
+        border-radius: 6px;
+        box-shadow: rgb(34 34 34 / 12%) 0px 2px 8px 0px;
+        background: 0% 0% no-repeat padding-box padding-box rgb(255, 255, 255);
+        box-sizing: border-box;
+        padding: 20px;
+        display: table;
+        table-layout: fixed;
+        }
+
+        #content {
+            width: 100%;
+            display: flexbox;
+            max-width: 900px;
+            margin: 5px auto;
+            position: relative;
+            padding: 0px 20px;
+            box-sizing: border-box;
+            min-height: inherit;
+        }
+
+        div {
+            display: block;
+        }
+
+        body {
+            min-width: 1024px;
+            min-height: 100%;
+            margin: 0px;
+            padding: 0px;}
+
+        .sub_content{
+            width: 100%;
+            display: flexbox;
+            min-height: 100%;
+            position: relative;
+            box-sizing: border-box;
+            background: rgb(249, 249, 249);
+            padding: 25px;
+            
+        }
+ 
+        ul.cloud{
+            list-style: none;
+            padding-left: 0;
+            display: flex;
+            flex-wrap:wrap;
+            align-items: left;
+            justify-content: center;
+            line-height: 2.5rem;
+        }
+        ul.cloud a[data-weight="0"] { --size: 9; }
+        ul.cloud a[data-weight="1"] { --size: 9; }
+        ul.cloud a[data-weight="2"] { --size: 8; }
+        ul.cloud a[data-weight="3"] { --size: 8; }
+        ul.cloud a[data-weight="4"] { --size: 7.5; }
+        ul.cloud a[data-weight="5"] { --size: 7; }
+        ul.cloud a[data-weight="6"] { --size: 7; }
+        ul.cloud a[data-weight="7"] { --size: 6.5; }
+        ul.cloud a[data-weight="8"] { --size: 6.5; }
+        ul.cloud a[data-weight="9"] { --size: 6; }
+        ul.cloud a[data-weight="10"] { --size: 6; }
+        ul.cloud a[data-weight="11"] { --size: 5.5; }
+        ul.cloud a[data-weight="12"] { --size: 5.5; }
+        ul.cloud a[data-weight="13"] { --size: 5; }
+        ul.cloud a[data-weight="14"] { --size: 5; }
+        ul.cloud a[data-weight="15"] { --size: 4.5; }
+        ul.cloud a[data-weight="16"] { --size: 4.5; }
+        ul.cloud a[data-weight="17"] { --size: 4; }
+        ul.cloud a[data-weight="18"] { --size: 4; }
+        ul.cloud a[data-weight="19"] { --size: 3.5; }
+        ul.cloud a[data-weight="20"] { --size: 3.5; }
+
+        ul.cloud li:nth-child(2n+1) a { --color: #181; }
+        ul.cloud li:nth-child(3n+1) a { --color: #33a; }
+        ul.cloud li:nth-child(4n+1) a { --color: #c38; }
+        ul.cloud li:nth-child(5n+1) a { --color: #a33; }
+        
+        ul.cloud a{
+            color: var(--color);
+            display: block;
+            font-size: 1.5rem;
+            padding: 0.125rem 0.25rem;
+            position: relative;
+            font-size: calc(var(--size) * 0.25rem + 0.5rem);
+        }
+        
+     
+        ul.cloud a:focus {
+            outline: 1px dashed;
+            } 
+
+        ul.cloud a::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 0;
+            height: 100%;
+            
+            background: var(--color);
+            transform: translate(-50%, 0);
+            opacity: 0.15;
+            transition: width 0.25s;
+            }
+
+        ul.cloud a:focus::before,
+        ul.cloud a:hover::before {
+            width: 100%;
+            }
+
+        @media (prefers-reduced-motion) {
+        ul.cloud * {
+                transition: none !important;
+            }}
+        #bt-1{
+            justify-content: space-around;
+            margin-left: 2px;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 14px;
+            background: rgb(99, 156, 18);
+            color: rgb(255, 255, 255);
+            height: 1.7em;
+        }
+        #bt-2{
+            justify-content: space-around;
+            margin-left: 2px;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 14px;
+            background: rgb(243, 156, 18);
+            color: rgb(255, 255, 255);
+            height: 1.7em;
+        }
+
+        #up{
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<div id=content >
+<section>
+    <header class="classpage"> 
+        <li>
+        <div id='up'>
+        <small> {{object.year}} {{object.semester}} {{ object.series_num }}-{{ object.num}} </small>
+        <span id='bt-2'>{{ subject.category }}</span>
+        </div>
+        <p style='margin-top: -0.1em; margin-bottom: 0;'><b style="font-size: large;"> {{ object.name }} </b></p> 
+        {{ object.department }} 
+        <br/>{{ object.professor }} 교수님
+        </li>
+    </header>
+</section>
+</div>
+
+<section class='sub_content'>
+    <body>
+        <div id=content>
+        <div class='row justify-content-center"'>
+        <div class='col-md-6'>
+            <h5>과목 키워드</h5><i class='fas fa-tag'>
+                </i>
+                <small>키워드를 클릭해보세요 😆</small><br/><br/>
+                <ul class='cloud' role='navigation' aria-label="tag cloud">
+                {% for key, value in words.items %}
+                    <li><a href='{% url "tagged_object_list" key %}' data-weight="{{value}}">{{ key|cut:'['|cut:']'|cut:"'" }}</a></li>
+                {% endfor %}
+                </ul>
+        </div>
+
+        <div class='col-md-6'>
+            <h5>유사강의 추천 </h5>
+            {% if simsub %}
+                {% for sub in simsub %}
+                <div class="classpage"> 
+                <li>
+                    <div style=" cursor: pointer;" onclick="location.href='{% url 'detail' sub.id %}';">
+                    <div id='up'>
+                    <small> {{sub.year}} {{sub.semester}} {{ sub.series_num }}-{{ sub.num}} </small>
+                    <span id='bt-1'>{{ subject.category }}</span></div>
+                    <h3 style='margin-top: -0.3em; margin-bottom: 0;'><b><a href="{% url 'detail' sub.id %}" >{{ sub.name }}</a>  </b></h3> 
+                    {{ sub.department }} 
+                    <br/>{{ sub.professor }} 교수님<br/>
+                    {{ sub.words_5|split|cut:'['|cut:']'|cut:"'"}}
+                    </div>
+                </li>
+                </div>
+                {% endfor %}
+            {% else %}
+            <b><i> 추천 유사강의가 없습니다 :( </i></b>
+            {% endif %}
+         </div>
+        </div>
+        <br/>
+            <h5> 추천 K-MOOC </h5>
+            {% if Mooclist %}
+                <div class="row row-cols-1 row-cols-2 row-cols-3">
+                    {% for mooc in Mooclist %}
+                    <div class="card-deck">
+                        <div class="row">
+                        <div class="col-auto mb-3">
+                        <div class='card' style="cursor: pointer;" onclick="location.href='{{ mooc.link }}';">
+                            <a href='{{ mooc.link }}'><img class="card-img-top" src='{{ mooc.image }}' height="200" width='250' alt="" style="display: block;"></a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ mooc.name }}</h5>
+                                <p class="card-text">카테고리 : {{ mooc.level }}</p>
+                                <p class="card-text"><small class="text-muted">강의수준 : {{ mooc.midclassify }}</small></p>
+                            </div>    
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                    {% else %}
+                    <b><i> 추천 K-MOOC 강의가 없습니다 :( </i></b>
+                    <br/><br/>
+                    {% endif %}
+
+                <!-- <small><i>{{ book_query }}</i></small><br/><br/> -->
+                <br/>
+                <h5> 추천 교재 </h5>
+                {% if Booklist %}
+                <div class="row row-cols-1 row-cols-2 row-cols-3">
+                {% for book in Booklist %}
+                    <div class="card-deck">
+                        <div class="row">
+                        <div class="col-auto mb-3">
+                        <div class='card' style=" cursor: pointer;" onclick="location.href='{{ book.link }}';">
+                            <a href='{{ book.link }}'><img class="card-img-top" src='{{ book.image }}' height="300" width='250' alt="" style=" display: block;"></a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ book.title|cut:"<b>"|cut:"</b>"}}</h5>
+                                <p class="card-text">
+                                    <a href='https://library.korea.ac.kr/datause/advanced-search/advanced-search-form/advanced-search-result/?verb=detail&target=catalog&st=KWRD&lmt0[]=TOTAL&lmtsn0=000000000001&lmtst0=OR&lmt1=TOTAL&lmt2=TOTAL&fi1=TOTAL&q1=="{{ book.title|cut:"<b>" | cut:"</b>" }}"' style='color: #990000;'>
+                                        고려대학교 도서관 소장 정보</a></p>
+                                <p class="card-text"><small class="text-muted"> 가격 : {{ book.price }} 원</small></p>
+                            </div>    
+                        </div>
+                        </div>
+                        </div>
+                    </div>  
+
+                {% endfor %}
+                {% else %}
+                    <b><i> 추천 교재가 없습니다 :( </i></b>
+                {% endif %}
+            </div>
+    </body>
+</section>
+
+{% endblock content %}

@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load subject_tag %}
+
+<head>
+    <title>{% block title %}Tag {{ tagname }}{% endblock %}</title>
+    <style>
+            #content {
+            width: 100%;
+            max-width: 900px;
+            margin: 5px auto;
+            position: relative;
+            padding: 0px 20px;
+            box-sizing: border-box;
+            min-height: inherit;
+        }
+        #bt-1{
+            justify-content: space-around;
+            margin-left: 2px;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 14px;
+            background: rgb(243, 156, 18);
+            color: rgb(255, 255, 255);
+            height: 1.7em;
+        }
+        #bt-2{
+            justify-content: space-around;
+            margin-left: 2px;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 14px;
+            background: rgb(99, 156, 18);
+            color: rgb(255, 255, 255);
+            height: 1.7em;
+        }
+        #up{
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+        }
+    </style>
+</head>
+<div id=content>
+<header>
+    <h2>#{{ tagname }} </h2>
+    <small> 키워드 포함과목 {{ object_list.paginator.count }} 개 </small>
+</header><br/>
+
+    <body>
+        <h3> 과목 리스트  </h3>
+            <ul class='list-group list-group-flush'>
+                {% for subject in object_list %}
+                <li class='list-group-item'>
+                    <div style=" cursor: pointer;" onclick="location.href='{% url 'detail' subject.id %}';">
+                        <div id='up'>
+                        <h3><a href="{% url 'detail' subject.id %}" >{{ subject.name }}</a></h3> 
+                        <p><span id='bt-1'>{{ subject.year }} {{ subject.semester }}</span> 
+                            <span id='bt-2'>{{ subject.category }}</span></p>
+                        </div>
+                        {{ subject.department }} 
+                    </div>
+                   <p>{{ subject.professor }} 교수님 </p>
+                    {{ subject.words_5|split}}
+                </li>
+                {% endfor %}
+            </ul>
+        
+            {% if object_list.has_other_pages %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+
+                    {% if object_list.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" tabindex="-1" aria-disabled="true">처음</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ object_list.previous_page_number }}" tabindex="-1" aria-disabled="true">이전</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a>
+                    </li>
+                    {% endif %}
+
+                    {% for i in page_range %}
+                    {% if object_list.number == i %}
+                        <li class="page-item active"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if object_list.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ object_list.next_page_number }}">다음</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ object_list.paginator.num_pages }}">마지막</a></li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">다음</a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </nav>
+            {% endif %}
+
+    </body>
+</div>
+{% endblock content %}
+

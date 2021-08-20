@@ -1,0 +1,62 @@
+<head>
+    <style>
+        #content {
+        width: 100%;
+        max-width: 900px;
+        margin: 5px auto;
+        position: relative;
+        padding: 0px 20px;
+        box-sizing: border-box;
+        min-height: inherit;
+        }
+        
+        .choices{
+            padding: 0px 52px 0px 22px;
+            width: 20%;
+            height: 48px;
+            margin: 0px auto;
+            border: 0;
+            box-shadow: none;
+        }
+
+        .homeform{
+        font-size: 16px;
+        padding: 0px 52px 0px 22px;
+        box-sizing: border-box;
+        transition: box-shadow 0.5s ease 0s;
+        box-shadow: none;
+        background: 0% 0% no-repeat padding-box padding-box rgb(246, 246, 246);
+        width: 50%;
+        height: 48px;
+        border-radius: 30px;
+        margin: 0px auto;
+        border: 2px solid rgb(215, 215, 215);
+        }
+        .button{
+        padding: 9px 25px;
+        background-color: rgba(253,222,73,1);
+        border: none;
+        border-radius: 70px;
+        height: 48px;
+        cursor: pointer;
+        transition:all 0.3s ease 0s;
+        }
+   
+    </style>
+   
+
+</head>
+
+<div style="text-align: center;">
+<div class="row" id=content>
+    <form action='/search' method='GET'> {% csrf_token %}
+    {{ form.year }} {{ form.semester }} <br/>
+        {{ form.search_word }}
+    
+    <input type="submit" value="검색"
+            placeholder="키워드로 강의를 찾아보세요 :)"
+            class="button" />
+        
+    </form>
+</div>
+</div>

@@ -1,0 +1,180 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+{% if object_list %}
+{% include "components/search.html" %}
+
+{% else %}
+{% include "components/logo.html" %}
+{% include "components/search.html" %}
+{% endif %}
+{% load subject_tag %}
+
+<head>
+    <title>{% block title %}키워드 강의 검색{% endblock %}</title>
+    <style>
+        #content {
+            width: 100%;
+            max-width: 900px;
+            margin: 5px auto;
+            position: relative;
+            padding: 0px 20px;
+            box-sizing: border-box;
+            min-height: inherit;
+        }
+        .acc{
+            margin-left: 2px;
+            padding: 2px 4px;
+            border-radius: 5px;
+            background: rgba(253, 223, 73, 0.795);
+            text-align: right;
+        }
+        #bt-1{
+            justify-content: space-around;
+            margin-left: 2px;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 14px;
+            background: rgb(243, 156, 18);
+            color: rgb(255, 255, 255);
+            height: 1.7em;
+        }
+        #bt-2{
+            justify-content: space-around;
+            margin-left: 2px;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 14px;
+            background: rgb(99, 156, 18);
+            color: rgb(255, 255, 255);
+            height: 1.7em;
+        }
+        #up{
+            display: flex;
+            justify-content: space-between;
+            text-align: center;
+        }
+        .classpage{
+        text-align: left;
+        margin: 5px;
+        }
+        .classpage li{
+        margin: 10px;
+        list-style: none;
+        width: 100%;
+        border: 1px solid rgb(224, 223, 223);
+        border-radius: 6px;
+        box-shadow: rgb(34 34 34 / 12%) 0px 2px 8px 0px;
+        background: 0% 0% no-repeat padding-box padding-box rgb(255, 255, 255);
+        box-sizing: border-box;
+        padding: 20px;
+        display: table;
+        table-layout: fixed;
+        }
+    </style>
+</head>
+
+<div id='content'>
+    <ul class='list-group list-group-flush'>
+        {% if object_list %}
+    
+        <h2> 과목 리스트  </h2>
+        <p>총 {{ object_list.paginator.count }} 개의 검색결과 </p>
+            {% for subject in object_list %}
+            <div class="classpage" style=" cursor: pointer;" onclick="location.href='{% url 'detail' subject.id %}';"> 
+                <li>
+                <div id='up'>
+                <small> {{ subject.series_num }}-{{ subject.num}} </small>
+                <p><span id='bt-1'>{{ subject.year }} {{ subject.semester }}</span> 
+                <span id='bt-2'>{{ subject.category }}</span></p>
+                </div>
+                <p style='margin-top: -1em; margin-bottom: -0.1em;'><b><a href="{% url 'detail' subject.id %}" style="font-size: large;">{{ subject.name }} </a></b></p> 
+                {{ subject.department }}
+                <br/>{{ subject.professor }} 교수님<br/>
+                {{ subject.words_5|split|cut:'['|cut:']'|cut:"'" }}
+            </li>
+        </a>
+        </div>
+
+            {% endfor %}
+            {% if object_list.has_other_pages %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    {% if object_list.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1&year={{ y }}&semester={{ s }}&search_word={{ sw }}" tabindex="-1" aria-disabled="true">처음</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ object_list.previous_page_number }}&year={{ y }}&semester={{ s }}&search_word={{ sw }}" tabindex="-1" aria-disabled="true">이전</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">이전</a>
+                    </li>
+                    {% endif %}
+
+                    {% for i in page_range %}
+                    {% if object_list.number == i %}
+                        <li class="page-item active"><a class="page-link" href="?page={{ i }}&year={{ y }}&semester={{ s }}&search_word={{ sw }}">{{ i }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}&year={{ y }}&semester={{ s }}&search_word={{ sw }}">{{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if object_list.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ object_list.next_page_number }}&year={{ y }}&semester={{ s }}&search_word={{ sw }}">다음</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ object_list.paginator.num_pages }}&year={{ y }}&semester={{ s }}&search_word={{ sw }}">마지막</a></li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">다음</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+            {% endif %}
+
+        {% elif sw %}
+            {% if lenword == 1 %}
+                <p style="text-align: center;">
+                    {{ sw }} 검색 결과 없음<br/>
+                    두글자 이상의 단어로 검색해주세요 !<br/><br/>
+                    학과, 교수명, 학수번호로도 검색가능합니다 😊 <br/>
+                </p>
+
+            {% elif y == '2021' and s == '1R' %}
+                <p style="text-align: center;" > 2021년 1학기 데이터는 없습니다 :(<br/>
+  
+            {% else %}
+                <p style="text-align: center;">
+                    {{ sw }} 검색 결과 없음<br/>
+                    다른 단어로 검색해보세요 !<br/><br/>
+                    학과, 교수명, 학수번호로도 검색가능합니다 😊 <br/>
+                    과목명 검색시 띄어쓰기없이 검색해주세요
+                </p>
+                </div>
+            {% endif %}
+        {% endif %}
+    </ul>
+ </div>
+{% endblock %}
+
+<script>
+    const xhr = new XMLHttpRequest() 
+    const method = 'GET'
+    const url ='/'
+    const responseType='json'
+
+    xhr.responseType=responseType
+    xhr.open(method, url)
+    xhr.onload=function(){
+        console.log(xhr.response)
+        const serverResponse=xhr.response
+        var listedItems=xhr.response.response
+        console.log(listedItems)
+    }
+      
+    xhr.send()
+</script>
+
+

@@ -1,0 +1,55 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+{% if object_list %}
+{% include "components/search.html" %}
+
+{% else %}
+{% include "components/logo.html" %}
+{% include "components/search.html" %}
+{% endif %}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}과목박사{% endblock %}</title>
+    <style>
+        #content {
+            width: 100%;
+            max-width: 900px;
+            margin: 5px auto;
+            position: relative;
+            padding: 0px 20px;
+            box-sizing: border-box;
+            min-height: inherit;
+        }
+    </style>
+</head>
+<body>
+    <br/>
+    <div id='content' style="text-align: center; color:dimgrey;">
+        과목명, 교수명, 학수번호, 학과명으로도 검색 가능합니다 😀
+
+    </div>
+</body>
+
+{% endblock %}
+<script>
+    const xhr = new XMLHttpRequest() //xhr = Some Class()
+    const method = 'GET'
+    const url ='/'
+    const responseType='json'
+
+    xhr.responseType=responseType
+    xhr.open(method, url)
+    xhr.onload=function(){
+        console.log(xhr.response)
+        const serverResponse=xhr.response
+        var listedItems=xhr.response.response
+        console.log(listedItems)
+    }
+      
+    xhr.send()
+</script>
+
+
