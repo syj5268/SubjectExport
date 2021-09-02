@@ -43,3 +43,5 @@ Project Files Description
 *Resultlist.html 검색 결과 페이지
 *subject_detail.html 과목 상세 페이지
 *tagged_object_list.html 키워드 태그 포함 과목 리스트 페이지
+--------------------
+https://bit.ly/3sooDZX
