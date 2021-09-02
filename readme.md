@@ -44,5 +44,5 @@ Project Files Description
 *subject_detail.html 과목 상세 페이지
 *tagged_object_list.html 키워드 태그 포함 과목 리스트 페이지
 --------------------
-웹사이트 보기: https://bit.ly/3sooDZX
+웹사이트 보기: https://bit.ly/3sooDZX \
 과정: https://www.notion.so/2021-KU-d50675d29a164ecca292b8bda09771ca
